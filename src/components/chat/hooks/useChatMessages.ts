@@ -63,6 +63,7 @@ export function useChatMessages(
         if (!response.ok) {
           throw new Error(`Не удалось получить уведомления (HTTP ${response.status})`)
         }
+        setNotificationError('')
 
         const body = await response.text()
         if (!body.trim()) {
@@ -107,7 +108,6 @@ export function useChatMessages(
         if (!deleteResponse.ok) {
           throw new Error(`Не удалось удалить уведомление (HTTP ${deleteResponse.status})`)
         }
-        setNotificationError('')
       } catch (error) {
         if (!controller.signal.aborted) {
           setNotificationError(
@@ -150,9 +150,8 @@ export function useChatMessages(
     if (!messageText.trim() || isSending) {
       return
     }
-
     setIsSending(true)
-    setSendError('')
+    setIsSending(true)
     const { idInstance, apiTokenInstance } = credentials
     const url = `${API_URL}/waInstance${encodeURIComponent(idInstance)}/sendMessage/${encodeURIComponent(apiTokenInstance)}`
 
@@ -168,6 +167,7 @@ export function useChatMessages(
         return
       }
 
+      setSendError('')
       setMessages((current) => [
         ...current,
         {
