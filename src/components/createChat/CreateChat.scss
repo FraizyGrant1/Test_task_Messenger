@@ -1,0 +1,37 @@
+@use '../../styles/tokens' as tokens;
+
+.create-chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: min(100%, 460px);
+  margin: 28px auto 0;
+  padding: 0 20px;
+  text-align: left;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    label {
+      @include tokens.form-label;
+    }
+
+    input {
+      @include tokens.form-input;
+
+      &[aria-invalid='true'] {
+        border-color: tokens.$color-danger;
+      }
+    }
+  }
+
+  &__error {
+    @include tokens.form-error;
+  }
+
+  &__submit {
+    @include tokens.primary-button;
+  }
+}
